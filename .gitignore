@@ -40,7 +40,12 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-
+*/node_modules
+*/DS_Store
+*/dist
+*.local
+*/yarn.lock
+*/package-lock.json
 # TypeScript v1 declaration files
 typings/
 
