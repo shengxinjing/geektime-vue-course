@@ -11,6 +11,6 @@
 </template>
 
 <script setup>
-import Heading from '../components/Head.jsx'
+import Heading from '../components/Heading.jsx'
 import { Timeline } from '../components/Todo.jsx'
 </script>
