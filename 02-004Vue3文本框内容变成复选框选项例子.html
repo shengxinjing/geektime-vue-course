@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3的例子</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{title}}</h2>
+    <input type="text" v-model="title" @keyup.enter.native="addTodo()">
+
+    <ul>
+      <li v-for="todo in todos">
+        <input type="checkbox" v-model="todo.done">
+        <span :class="{done:todo.done}"> {{todo.title}}</span>
+      </li>
+    </ul>
+    <p>未完成{{active}} / 共计{{all}}</p> 
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          title: "", // 定义一个数据
+          todos: [
+            { title: '吃饭', done: false },
+            { title: '睡觉', done: true },   //默认选中
+            { title: '学习Vue', done: true } 
+          ]
+        }
+      },
+      computed: {
+        active() {
+          return this.todos.filter(v => !v.done).length
+        },
+        all() {
+          return this.todos.length
+        }
+      },
+      methods: {
+        addTodo() {                 //将文本框内容变成复选框条目（默认不选中）
+          this.todos.push({
+            title: this.title,
+            done: false
+          })
+          this.title = ""
+        }
+      }
+    }
+    // 启动应用
+    Vue.createApp(App).mount('#app')
+  </script>
+
+  <style>
+    .done {
+      color: gray;
+      text-decoration: line-through;
+    }
+  </style>
+
+</body>
+
+</html>

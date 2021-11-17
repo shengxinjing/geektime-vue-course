@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3的例子</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{title}}</h2>
+        <input type="text" v-model="title">
+      </div>
+      
+      <script src="https://unpkg.com/vue@next"></script>
+      <script>
+      const App = {
+        data() {
+          return {
+            title: "我的Vue3" // 定义一个数据
+          }
+        }
+      }
+      // 启动应用
+      Vue.createApp(App).mount('#app')
+      </script> 
+</body>
+
+</html>
