@@ -4,6 +4,7 @@
     <!-- <h1>{{x}},{{y}}</h1>
     <h1 @click="add">{{count}}</h1>-->
     <input type="text" v-model="title" @keydown.enter="addTodo" />
+    
     <button v-if="active < all" @click="clear">清理</button>
     <div v-if="todos.length">
       <transition-group name="flip-list" tag="ul">
@@ -35,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive } from "vue";
+import { ref, computed, reactive } from "vue";         //
 import { useMouse } from '../utils/mouse'
 
 let animate = reactive({
@@ -43,6 +44,7 @@ let animate = reactive({
   el: null
 })
 function beforeEnter(el) {
+
   let dom = animate.el
   let rect = dom.getBoundingClientRect()
   let x = window.innerWidth - rect.left - 60
