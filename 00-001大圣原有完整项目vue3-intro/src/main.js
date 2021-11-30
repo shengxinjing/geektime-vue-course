@@ -6,7 +6,7 @@ import App from './App.vue'
 import router from './router/index'
 // import Heading from './components/Head.js'
 window.onerror = function(e){
-    // console.log(['https://stackoverflow.com/search?q=[js]+'+e])
+    console.log(['https://stackoverflow.com/search?q=[js]+'+e])
 }
 const app = createApp(App)
 
