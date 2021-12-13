@@ -44,7 +44,7 @@ function mouseOut() {
   width.value = props.value;
 }
 const fontwidth = computed(() => `width:${width.value}em;`);
-let emits = defineEmits("[update-rate]"); // 定义emits
+let emits = defineEmits(["update-rate"]); // 定义emits
 function onRate(num) {
   emits("update-rate", num); //通过@引用
 }
