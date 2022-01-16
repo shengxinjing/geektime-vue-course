@@ -1,0 +1,17 @@
+{
+  "name": "vue-ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/server-renderer": "^3.2.26",
+    "express": "^4.17.2",
+    "vue": "^3.2.26"
+  }
+}
