@@ -1,12 +1,23 @@
 <script setup>
-let num = $ref(1)
+import {ref} from 'vue'
+import HelloWorld from './components/HelloWorld.vue'
+import useMouse from './mouse'
+let num = ref(1)
 function add(){
-  num++
+  num.value++
 }
+
+let {x,y} = useMouse()
 </script>
 
 <template>
 <h1 @click="add">{{num}}</h1>
+<div>
+  {{x}},
+  {{y}}
+</div>
+<hr>
+<HelloWorld />
 </template>
 
 <style>

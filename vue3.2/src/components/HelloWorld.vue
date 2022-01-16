@@ -1,16 +1,19 @@
 <script setup>
 import { ref } from 'vue'
+import useMouse from '../mouse'
 
 defineProps({
   msg: String
 })
 
 const count = ref(0)
+
+let {x,y} = useMouse()
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
-
+  <p>{{x}},{{y}}</p>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
