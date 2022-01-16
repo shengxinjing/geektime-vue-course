@@ -12,7 +12,7 @@ let props = defineProps({
 console.log(props)
 let rate = computed(()=>"★★★★★☆☆☆☆☆".slice(5 - props.value, 10 - props.value))
 const themeObj = {
-  'black': '#00',
+  'black': '#000',
   'white': '#fff',
   'red': '#f5222d',
   'orange': '#fa541c',
