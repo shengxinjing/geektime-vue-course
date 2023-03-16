@@ -1,10 +1,10 @@
 <template>
   <div :style="fontstyle">
-    <div class="rate" @mouseout="mouseOut">
-      <span @mouseover="mouseOver(num)" v-for="num in 5" :key="num">☆</span>
+    <div class="rate" @mouseleave="mouseLeave">
+      <span @mousemove="mousemove($event,num)" v-for="num in 5" :key="num">☆</span>
       <span class="hollow" :style="fontwidth">
         <!-- <span @mouseover="mouseOver(num)" v-for="num in 5" :key="num">★</span> -->
-        <span @click="onRate(num)" @mouseover="mouseOver(num)" v-for="num in 5" :key="num" >★</span>
+        <span @click="onRate"  @mousemove="mousemove($event,num)" v-for="num in 5" :key="num" >★</span>
       </span>
  
     </div>
@@ -13,7 +13,6 @@
 
 <script setup>
 import { defineProps, defineEmits, computed, ref } from "vue";
-
 let props = defineProps({
   value: Number,
   theme: { type: String, default: "orange" },
@@ -34,19 +33,55 @@ const themeObj = {
 const fontstyle = computed(() => {
   return `color:${themeObj[props.theme]};`;
 });
-
 // 评分宽度
 let width = ref(props.value);
-function mouseOver(i) {
-  width.value = i;
+// 不会冒泡，mouseout存在闪烁问题
+function mouseLeave() {
+  (debounce(()=>{
+      width.value = props.value;
+  },100))()
 }
-function mouseOut() {
-  width.value = props.value;
+function mousemove(event,num){
+  (debounce(()=>{
+      let layerX = event.layerX;
+      const offsetWidth = event.target.offsetWidth;
+      if(!isZero(layerX,offsetWidth)){
+          if(isMoreThanHalf(layerX,offsetWidth)){
+              width.value = num;
+          }else{
+              width.value = num - 0.5;
+          }
+      }else{
+          width.value = 0;
+      }
+  },100))();
+}
+
+// 简单防抖函数
+function debounce(fn,time){
+  let timer = null;
+  return ()=>{
+      timer = setTimeout(()=>{
+          if(timer){
+              clearTimeout(timer)
+          }
+          fn();
+      },time)
+  }
+}
+// 计算当前鼠标是否超过一半
+function isMoreThanHalf(x,width){
+  const remainder = x % width;
+  return remainder >= width / 2;
+}
+//是否清空
+function isZero(x,width){
+  return x < width / 2 / 2;
 }
 const fontwidth = computed(() => `width:${width.value}em;`);
 let emits = defineEmits(["update-rate"]); // 定义emits
-function onRate(num) {
-  emits("update-rate", num); //通过@引用
+function onRate() {
+  emits("update-rate", width.value); //通过@引用
 }
 </script>
 
@@ -54,6 +89,11 @@ function onRate(num) {
 .rate {
   position: relative;
   display: inline-block;
+  font-size: 14px;
+}
+.rate span {
+  display: inline-block;
+  width: 14px;
 }
 .rate > span.hollow {
   position: absolute;
@@ -62,5 +102,6 @@ function onRate(num) {
   left: 0;
   width: 0;
   overflow: hidden;
+  white-space: nowrap;
 }
 </style>
